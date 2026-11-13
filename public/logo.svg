@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="118" fill="#140f26" />
+  <g fill="#b9a8f7">
+    <!-- left bracket [ -->
+    <path d="M96 96 H216 V136 H136 V376 H216 V416 H96 Z" />
+    <!-- right bracket ] -->
+    <path d="M416 96 H296 V136 H376 V376 H296 V416 H416 Z" />
+    <!-- crossing lines -->
+    <path d="M146 188 L370 318 L352 350 L128 220 Z" />
+    <path d="M146 324 L370 194 L352 162 L128 292 Z" />
+  </g>
+  <circle cx="256" cy="256" r="23" fill="#f8f6ff" />
+</svg>

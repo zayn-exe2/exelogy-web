@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--p:#7c3aed;--p2:#a855f7;--pink:#e879f9;--ink:#0d0620;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.12);--mute:#c4b5fd;--green:#34d399}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:540px;height:960px;overflow:hidden;background:var(--ink);color:#fff;font-family:Inter,sans-serif}
+  .stage{position:relative;width:540px;height:960px;overflow:hidden;
+    background:radial-gradient(120% 70% at 50% 0%,#3b1380 0%,#1a0940 45%,#0d0620 80%)}
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+  .b1{width:380px;height:380px;background:#7c3aed;left:-120px;top:120px;animation:drift1 20s linear both}
+  .b2{width:320px;height:320px;background:#c026d3;right:-120px;top:520px;animation:drift2 20s linear both}
+  .grid{position:absolute;inset:0;opacity:.07;
+    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:36px 36px;mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent)}
+  @keyframes drift1{to{transform:translate(160px,140px) scale(1.15)}}
+  @keyframes drift2{to{transform:translate(-150px,-180px) scale(1.2)}}
+
+  /* scene windows: --a in-time, --b out-time (seconds) */
+  /* base opacity 1; sIn holds 0 before its start (backwards), sOut holds 0 after its end (forwards) */
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:0 36px;
+    animation:sIn .5s cubic-bezier(.2,.8,.2,1) backwards, sOut .45s ease-in forwards;
+    animation-delay:calc(var(--a)*1s),calc(var(--b)*1s - .45s)}
+  .scene.last{animation:sIn .5s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--a)*1s)}
+  @keyframes sIn{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:none}}
+  @keyframes sOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-26px) scale(1.02)}}
+
+  .pop{opacity:0;animation:pop .6s cubic-bezier(.2,.9,.3,1.25) both;animation-delay:calc(var(--d)*1s)}
+  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.92)}to{opacity:1;transform:none}}
+  .k{font:600 12px/1 "JetBrains Mono",monospace;letter-spacing:.28em;text-transform:uppercase;color:var(--mute)}
+  h1,h2{font-family:"Space Grotesk",sans-serif;letter-spacing:-.035em;text-align:center;font-weight:700}
+  h1{font-size:58px;line-height:1.02}
+  h2{font-size:40px;line-height:1.08}
+  em{font-style:normal;background:linear-gradient(90deg,#c084fc,#f0abfc);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:19px;line-height:1.45;color:#ddd6fe;text-align:center}
+
+  /* S1 ringing phone */
+  .ring{position:relative;width:200px;height:200px;margin:150px 0 56px}
+  .ring .r{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(232,121,249,.6);animation:ripple 1.5s ease-out infinite both}
+  .ring .r:nth-child(2){animation-delay:.5s}.ring .r:nth-child(3){animation-delay:1s}
+  @keyframes ripple{from{transform:scale(.55);opacity:1}to{transform:scale(1.5);opacity:0}}
+  .ring .ic{position:absolute;inset:40px;border-radius:50%;display:grid;place-items:center;
+    background:linear-gradient(135deg,#7c3aed,#c026d3);box-shadow:0 20px 60px rgba(192,38,211,.5)}
+  .ring svg{width:56px;height:56px;animation:shake .9s ease-in-out infinite both}
+  @keyframes shake{0%,50%,100%{transform:rotate(0)}10%,30%{transform:rotate(-16deg)}20%,40%{transform:rotate(16deg)}}
+  .missed{margin-top:34px;display:flex;flex-direction:column;gap:10px;width:100%}
+  .mrow{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+  .mrow .dot{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(244,63,94,.15);color:#fb7185;font-weight:700}
+  .mrow b{font:600 15px Inter}.mrow span{font-size:12px;color:#a78bfa}
+  .mrow i{margin-left:auto;font:600 11px "JetBrains Mono";color:#fb7185;font-style:normal;letter-spacing:.1em}
+
+  /* S2 brand */
+  .brand{margin-top:250px;display:flex;flex-direction:column;align-items:center;gap:22px}
+  .badge{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:rgba(124,58,237,.25);border:1px solid rgba(196,181,253,.35);font:600 14px "JetBrains Mono";letter-spacing:.12em}
+  .badge::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+  .wave{display:flex;align-items:center;gap:5px;height:90px;margin-top:20px}
+  .wave span{width:6px;border-radius:6px;background:linear-gradient(#f0abfc,#7c3aed);height:12px;animation:bar 1s ease-in-out infinite alternate both}
+  @keyframes bar{to{height:var(--h)}}
+
+  /* S3 phone */
+  .phone{margin-top:96px;width:330px;height:640px;border-radius:46px;padding:12px;background:#120a26;
+    border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 6px rgba(124,58,237,.18)}
+  .screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;padding:44px 16px 16px;
+    background:linear-gradient(180deg,#1d0f3d,#120a26)}
+  .notch{position:absolute;top:10px;left:50%;width:96px;height:24px;margin-left:-48px;border-radius:14px;background:#000}
+  .callhd{display:flex;align-items:center;gap:12px}
+  .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#c026d3);font:700 18px "Space Grotesk"}
+  .callhd b{display:block;font:600 15px Inter}.callhd span{font-size:11px;color:var(--green);font-family:"JetBrains Mono"}
+  .timer{margin-left:auto;font:600 13px "JetBrains Mono";color:#ddd6fe}
+  .mwave{display:flex;align-items:center;justify-content:center;gap:3px;height:58px;margin:16px 0 12px}
+  .mwave span{width:3px;border-radius:3px;background:#c084fc;height:6px;animation:bar .7s ease-in-out infinite alternate both}
+  .msg{max-width:86%;padding:10px 13px;border-radius:16px;font-size:12.5px;line-height:1.4;margin-bottom:9px}
+  .msg small{display:block;font:600 9px "JetBrains Mono";letter-spacing:.15em;margin-bottom:3px;opacity:.75}
+  .ai{background:rgba(124,58,237,.3);border:1px solid rgba(196,181,253,.25);border-bottom-left-radius:5px}
+  .hu{margin-left:auto;background:rgba(255,255,255,.1);border:1px solid var(--line);border-bottom-right-radius:5px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:6px}
+  .st{padding:9px 6px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--line);text-align:center}
+  .st small{display:block;font:600 8px "JetBrains Mono";letter-spacing:.12em;color:#a78bfa}
+  .st b{font:700 13px "Space Grotesk"}
+  .booked{position:absolute;left:16px;right:16px;bottom:16px;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;
+    background:linear-gradient(90deg,rgba(52,211,153,.2),rgba(52,211,153,.08));border:1px solid rgba(52,211,153,.4);font:600 13px Inter}
+  .booked .ck{width:26px;height:26px;border-radius:50%;background:var(--green);display:grid;place-items:center;color:#06281c;font-weight:800}
+  .s3title{position:absolute;top:34px;left:0;right:0}
+
+  /* S4 features */
+  .feat{margin-top:120px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fc{padding:20px 18px;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(6px)}
+  .fc .fi{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px;background:linear-gradient(135deg,rgba(124,58,237,.6),rgba(192,38,211,.6))}
+  .fc .fi svg{width:22px;height:22px}
+  .fc b{display:block;font:700 18px "Space Grotesk";letter-spacing:-.01em;margin-bottom:5px}
+  .fc span{font-size:12.5px;line-height:1.4;color:#c4b5fd}
+  .big247{margin-top:26px;display:flex;align-items:center;gap:18px;width:100%;padding:20px 22px;border-radius:22px;
+    background:linear-gradient(90deg,rgba(124,58,237,.35),rgba(192,38,211,.25));border:1px solid rgba(240,171,252,.3)}
+  .big247 b{font:700 52px "Space Grotesk";letter-spacing:-.04em}
+  .big247 span{font-size:15px;line-height:1.4;color:#ede9fe}
+
+  /* S5 end */
+  .end{margin-top:250px;display:flex;flex-direction:column;align-items:center}
+  .end img{height:58px;filter:brightness(0) invert(1);transform:translateX(22px);margin-bottom:34px}
+  .cta{margin-top:34px;padding:16px 30px;border-radius:999px;background:#fff;color:#4c1d95;font:700 19px Inter;box-shadow:0 16px 40px rgba(192,38,211,.35)}
+  .url{margin-top:16px;font:600 14px "JetBrains Mono";letter-spacing:.14em;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="grid"></div>
+
+  <!-- S1: hook (0 – 3.4) -->
+  <section class="scene" style="--a:-1;--b:3.4">
+    <div class="ring"><div class="r"></div><div class="r"></div><div class="r"></div>
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+    </div>
+    <h1 class="pop" style="--d:-1">Every missed call<br>is a <em>missed customer.</em></h1>
+    <div class="missed">
+      <div class="mrow pop" style="--d:.5"><div class="dot">✕</div><div><b>New enquiry</b><br><span>Today, 7:42 PM</span></div><i>MISSED</i></div>
+      <div class="mrow pop" style="--d:.85"><div class="dot">✕</div><div><b>Lead follow-up</b><br><span>Today, 8:15 PM</span></div><i>MISSED</i></div>
+    </div>
+  </section>
+
+  <!-- S2: brand (3.4 – 7) -->
+  <section class="scene" style="--a:3.4;--b:7">
+    <div class="brand">
+      <div class="badge pop" style="--d:3.6">AI VOICE AGENT</div>
+      <h1 class="pop" style="--d:3.8;font-size:72px">Meet<br><em>Callifier.</em></h1>
+      <p class="sub pop" style="--d:4.1">AI that makes — and answers —<br>the calls your team can't.</p>
+      <div class="wave pop" style="--d:4.3" id="wave"></div>
+    </div>
+  </section>
+
+  <!-- S3: live call (7 – 12.4) -->
+  <section class="scene" style="--a:7;--b:12.4">
+    <div class="s3title pop" style="--d:7.1"><h2 style="font-size:30px">Natural calls. <em>Real results.</em></h2></div>
+    <div class="phone">
+      <div class="screen"><div class="notch"></div>
+        <div class="callhd"><div class="av">S</div><div><b>Sarah Johnson</b><span>● AI CALL LIVE</span></div><div class="timer" id="timer">00:00</div></div>
+        <div class="mwave" id="mwave"></div>
+        <div class="msg ai pop" style="--d:7.6"><small>CALLIFIER</small>Hi Sarah! Calling about your enquiry. Is now a good time?</div>
+        <div class="msg hu pop" style="--d:8.6"><small>SARAH</small>Yes, perfect timing actually.</div>
+        <div class="msg ai pop" style="--d:9.5"><small>CALLIFIER</small>Great! Does Thursday at 10 AM work for a quick demo?</div>
+        <div class="msg hu pop" style="--d:10.3"><small>SARAH</small>Thursday works. 👍</div>
+        <div class="stats pop" style="--d:10.8">
+          <div class="st"><small>SENTIMENT</small><b style="color:#34d399">Positive</b></div>
+          <div class="st"><small>INTENT</small><b style="color:#f0abfc">High</b></div>
+          <div class="st"><small>LEAD</small><b>Qualified</b></div>
+        </div>
+        <div class="booked pop" style="--d:11.3"><div class="ck">✓</div>Meeting booked · Thu 10:00 AM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: features (12.4 – 16.8) -->
+  <section class="scene" style="--a:12.4;--b:16.8">
+    <h2 class="pop" style="--d:12.5;margin-top:110px">One AI caller.<br><em>Every call.</em></h2>
+    <div class="feat" style="margin-top:34px">
+      <div class="fc pop" style="--d:12.9"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7M19 8v6M16 11h6"/></svg></div><b>Lead Generation</b><span>Calls & qualifies prospects at scale</span></div>
+      <div class="fc pop" style="--d:13.15"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><b>Follow-Ups</b><span>Persistent, polite, always on time</span></div>
+      <div class="fc pop" style="--d:13.4"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg></div><b>AI Receptionist</b><span>Answers & routes inbound calls</span></div>
+      <div class="fc pop" style="--d:13.65"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div><b>Appointments</b><span>Books & confirms by voice</span></div>
+    </div>
+    <div class="big247 pop" style="--d:14.2"><b>24/7</b><span>Never sleeps. Never misses a call.<br>Syncs results to your CRM.</span></div>
+  </section>
+
+  <!-- S5: end (16.8 – 20) -->
+  <section class="scene last" style="--a:16.8">
+    <div class="end">
+      <img class="pop" style="--d:17" src="file:///D:/exelogy/web-update/public/logo.png" alt="">
+      <h1 class="pop" style="--d:17.2">Let AI make<br><em>the calls.</em></h1>
+      <div class="cta pop" style="--d:17.6">Book a Callifier demo →</div>
+      <div class="url pop" style="--d:17.85">EXELOGY.COM</div>
+    </div>
+  </section>
+</div>
+<script>
+  // deterministic waveform bars
+  const rnd = (s => () => (s = (s * 9301 + 49297) % 233280) / 233280)(7);
+  const mk = (id, n, max, min) => { const el = document.getElementById(id);
+    for (let i = 0; i < n; i++) { const s = document.createElement("span");
+      const c = 1 - Math.abs(i - n / 2) / (n / 2);
+      s.style.setProperty("--h", (min + (max - min) * (0.35 + 0.65 * c) * (0.5 + rnd() * 0.5)) + "px");
+      s.style.animationDelay = (-rnd()).toFixed(2) + "s"; el.appendChild(s); } };
+  mk("wave", 34, 88, 14); mk("mwave", 46, 54, 8);
+  // seek every animation to time t (seconds) — used for frame-by-frame rendering
+  window.seek = t => {
+    document.getAnimations().forEach(a => { a.pause(); a.currentTime = t * 1000; });
+    const s = Math.max(0, t - 7.2), tm = document.getElementById("timer");
+    tm.textContent = "00:" + String(Math.floor(s + 12)).padStart(2, "0");
+  };
+</script>
+</body>
+</html>
