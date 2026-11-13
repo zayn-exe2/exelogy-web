@@ -51,7 +51,7 @@ export default function ProductsSection() {
             {/* Product glow */}
             <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/5 blur-[100px] pointer-events-none" />
 
-            <div className="grid lg:grid-cols-2 gap-12 p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 p-4 sm:p-8 lg:p-12">
               {/* Left: Info */}
               <div className="flex flex-col justify-center">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 w-fit mb-6">
@@ -120,7 +120,7 @@ export default function ProductsSection() {
             {/* Product glow */}
             <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-[100px] pointer-events-none" />
 
-            <div className="grid lg:grid-cols-2 gap-12 p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 p-4 sm:p-8 lg:p-12">
               {/* Left: Call interface */}
               <div className="relative order-2 lg:order-1">
                 <CallAIInterface />
@@ -188,7 +188,7 @@ export default function ProductsSection() {
             {/* Product glow */}
             <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/5 blur-[100px] pointer-events-none" />
 
-            <div className="grid lg:grid-cols-2 gap-12 p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 p-4 sm:p-8 lg:p-12">
               {/* Left: Info */}
               <div className="flex flex-col justify-center">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 w-fit mb-6">
@@ -265,7 +265,7 @@ function GrowthOSDashboard() {
         </span>
       </div>
       {/* Metrics */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
         {[
           { label: "ROAS", value: "4.2x", change: "+12%" },
           { label: "Leads", value: "1,247", change: "+23%" },
@@ -273,12 +273,12 @@ function GrowthOSDashboard() {
         ].map((metric) => (
           <div
             key={metric.label}
-            className="p-3 rounded-xl bg-secondary/30 border border-border/30"
+            className="min-w-0 p-2 sm:p-3 rounded-xl bg-secondary/30 border border-border/30"
           >
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase sm:tracking-wider">
               {metric.label}
             </p>
-            <p className="text-lg font-bold mt-1">{metric.value}</p>
+            <p className="text-base sm:text-lg font-bold mt-1">{metric.value}</p>
             <p className="text-[10px] text-green-400">{metric.change}</p>
           </div>
         ))}

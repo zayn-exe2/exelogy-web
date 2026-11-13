@@ -12,13 +12,13 @@ const groups = [
 export default function AIUseCasesSection(){
  const [active,setActive]=useState(0); const g=groups[active]; const Icon=g.icon;
  return <section className="section-pad bg-[#f2f6f4] border-y border-[#dfe8e4]">
-  <div className="mx-auto max-w-7xl px-6 lg:px-8 grid lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-20 items-start">
+  <div className="mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-20 items-start">
    <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}}>
     <p className="eyebrow mb-5">AI use cases</p><h2 className="dark-heading">What could AI do inside your business?</h2>
     <p className="mt-6 text-lg text-muted-foreground max-w-xl">Start with the business problem, not the technology. Explore practical ways AI can improve revenue, service and operations.</p>
    </motion.div>
    <div className="rounded-[28px] border border-[#d9e3df] bg-white p-3 shadow-[0_20px_60px_rgba(24,50,74,.07)]">
-    <div className="flex gap-2 overflow-x-auto p-2">{groups.map((x,i)=><button key={x.key} onClick={()=>setActive(i)} className={`whitespace-nowrap rounded-xl px-4 py-3 text-sm font-semibold transition ${active===i?"bg-[#18324a] text-white":"text-[#536676] hover:bg-[#f2f6f4]"}`}>{x.key}</button>)}</div>
+    <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:overflow-x-auto p-2">{groups.map((x,i)=><button key={x.key} onClick={()=>setActive(i)} className={`whitespace-nowrap rounded-xl px-4 py-3 text-sm font-semibold transition ${active===i?"bg-[#18324a] text-white":"text-[#536676] hover:bg-[#f2f6f4]"}`}>{x.key}</button>)}</div>
     <motion.div key={g.key} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="p-5 sm:p-8 border-t border-[#edf1ef] mt-2">
      <div className="w-12 h-12 rounded-2xl bg-[#f2ecfb] flex items-center justify-center mb-6"><Icon className="w-6 h-6 text-[#5118a5]"/></div>
      <h3 className="text-2xl font-semibold tracking-tight text-[#18324a]">{g.key}</h3><p className="mt-3 text-muted-foreground">{g.text}</p>

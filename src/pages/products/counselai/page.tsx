@@ -437,8 +437,8 @@ function IntakeMockup() {
       </div>
 
       {/* Matter summary */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="p-2.5 rounded-lg bg-secondary/30 border border-border/20 text-center">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        <div className="min-w-0 p-2 sm:p-2.5 rounded-lg bg-secondary/30 border border-border/20 text-center">
           <p className="text-[9px] text-muted-foreground uppercase">
             Practice Area
           </p>
@@ -446,11 +446,11 @@ function IntakeMockup() {
             Personal Injury
           </p>
         </div>
-        <div className="p-2.5 rounded-lg bg-secondary/30 border border-border/20 text-center">
+        <div className="min-w-0 p-2 sm:p-2.5 rounded-lg bg-secondary/30 border border-border/20 text-center">
           <p className="text-[9px] text-muted-foreground uppercase">Matter</p>
           <p className="text-xs font-medium text-green-400 mt-0.5">Qualified</p>
         </div>
-        <div className="p-2.5 rounded-lg bg-secondary/30 border border-border/20 text-center">
+        <div className="min-w-0 p-2 sm:p-2.5 rounded-lg bg-secondary/30 border border-border/20 text-center">
           <p className="text-[9px] text-muted-foreground uppercase">
             Consultation
           </p>

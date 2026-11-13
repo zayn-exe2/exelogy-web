@@ -53,7 +53,7 @@ export default function TechnologySection() {
         </motion.div>
 
         {/* Tech constellation */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {techCategories.map((cat, i) => (
             <motion.div
               key={cat.label}
@@ -61,12 +61,12 @@ export default function TechnologySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className={`p-6 rounded-2xl border border-border/30 bg-card/20 ${i === 0
+              className={`p-4 sm:p-6 rounded-2xl border border-border/30 bg-card/20 ${i === 0
                 ? "md:col-span-2 lg:col-span-2"
                 : ""
                 }`}
             >
-              <h4 className="font-mono text-xs uppercase tracking-widest text-primary mb-4">
+              <h4 className="font-mono text-xs uppercase tracking-wider sm:tracking-widest text-primary mb-4">
                 {cat.label}
               </h4>
               <div className="flex flex-wrap gap-2">

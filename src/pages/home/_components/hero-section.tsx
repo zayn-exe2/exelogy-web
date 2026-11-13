@@ -6,11 +6,11 @@ const chips = ["AI Agents", "Software Engineering", "Automation", "Digital Growt
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden pt-28 lg:pt-32 flex items-center">
+    <section className="relative overflow-hidden pt-20 lg:pt-24">
       <div className="absolute inset-0 hero-mesh" />
       <div className="absolute inset-0 grid-fade opacity-50" />
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28 w-full">
-        <div className="grid lg:grid-cols-[1.02fr_.98fr] gap-14 lg:gap-20 items-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 pt-6 pb-16 lg:pt-8 lg:pb-20 w-full">
+        <div className="grid lg:grid-cols-[1.02fr_.98fr] gap-14 lg:gap-20 items-center lg:items-start">
           <motion.div initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:.65}}>
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/8 px-4 py-2 text-xs font-mono uppercase tracking-[.16em] text-primary mb-7">
               <span className="size-1.5 rounded-full bg-primary animate-pulse"/> AI-first technology partner

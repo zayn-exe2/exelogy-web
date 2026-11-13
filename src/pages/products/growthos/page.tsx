@@ -433,7 +433,7 @@ function DashboardMockup() {
       </div>
 
       {/* Metrics row */}
-      <div className="grid grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Total Reach", value: "284K", change: "+18%" },
           { label: "Engagement", value: "8.4%", change: "+5%" },
